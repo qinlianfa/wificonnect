@@ -20,7 +20,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-public class WifiAsyncTask extends AsyncTask<String, Void, String> {
+public class WifiAsyncTask extends AsyncTask<String, Void, String> {//doInBackground,updateç­‰å‡½æ•°å‚æ•°
 	private String ssid;
 	String passwd;
 	WifiConnect wc;
@@ -41,32 +41,32 @@ public boolean getflag()
 		// WifiManager wifiM = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 			////	 wc=new WifiConnect(wifiM);
 		HttpClient hc = new DefaultHttpClient();
-		// ÕâÀïÊÇ·şÎñÆ÷µÄIP£¬²»ÒªĞ´³ÉlocalhostÁË£¬¼´Ê¹ÔÚ±¾»ú²âÊÔÒ²ÒªĞ´ÉÏ±¾»úµÄIPµØÖ·£¬localhost»á±»µ±³ÉÄ£ÄâÆ÷×ÔÉíµÄ
+		// è¿™é‡Œæ˜¯æœåŠ¡å™¨çš„IPï¼Œä¸è¦å†™æˆlocalhostäº†ï¼Œå³ä½¿åœ¨æœ¬æœºæµ‹è¯•ä¹Ÿè¦å†™ä¸Šæœ¬æœºçš„IPåœ°å€ï¼Œlocalhostä¼šè¢«å½“æˆæ¨¡æ‹Ÿå™¨è‡ªèº«çš„
 		//String address = "http://192.168.1.125:8080/ServerJsonDemo/JsonServlet";
 
 		//String gender = "";
 		try {
-			String[] strs = params[0].split(",");//ÇëÇóµ¥¸ö»ò¶à¸ö¶ÔÏó
-			if(strs.length == 1){			//ÇëÇóµ¥¸ö¶ÔÏó
-				// ·â×°JSON¶ÔÏó
+			String[] strs = params[0].split(",");//è¯·æ±‚å•ä¸ªæˆ–å¤šä¸ªå¯¹è±¡
+			if(strs.length == 1){			//è¯·æ±‚å•ä¸ªå¯¹è±¡
+				// å°è£…JSONå¯¹è±¡
 				System.out.println("strs.lenth==1");
 				JSONObject jsonObj = new JSONObject();
 				jsonObj.put("SSID", params[0].trim());
 				System.out.println("jsonObj"+jsonObj.toString());
-				//ÉèÖÃÇëÇóIP
+				//è®¾ç½®è¯·æ±‚IP
 				String address = "http://192.168.1.111:8080/test_struts/getAuthorise.action";
-				// ´´½¨ÇëÇó²¢°ó¶¨ÇëÇóµ½Entity
+				// åˆ›å»ºè¯·æ±‚å¹¶ç»‘å®šè¯·æ±‚åˆ°Entity
 				HttpPost hp = new HttpPost(address);
 				hp.setEntity(new StringEntity(jsonObj.toString()));
 				HttpResponse response = hc.execute(hp);
-				// ·µ»Ø200¼´ÇëÇó³É¹¦
+				// è¿”å›200å³è¯·æ±‚æˆåŠŸ
 				System.out.println("StatusCode: " + response.getStatusLine().getStatusCode());
 				if (response.getStatusLine().getStatusCode() == 200) {
-					// »ñÈ¡ÏìÓ¦ÖĞµÄÊı¾İ£¬ÕâÒ²ÊÇÒ»¸öJSON¸ñÊ½µÄÊı¾İ
-					mStrResult = EntityUtils.toString(response.getEntity());//string¸ñÊ½
-					// ½«·µ»Ø½á¹ûÉú³ÉJSON¶ÔÏó
+					// è·å–å“åº”ä¸­çš„æ•°æ®ï¼Œè¿™ä¹Ÿæ˜¯ä¸€ä¸ªJSONæ ¼å¼çš„æ•°æ®
+					mStrResult = EntityUtils.toString(response.getEntity());//stringæ ¼å¼
+					// å°†è¿”å›ç»“æœç”ŸæˆJSONå¯¹è±¡
 					JSONObject result = new JSONObject(mStrResult);
-					// ´ÓÖĞÌáÈ¡ĞèÒªµÄÖµ
+					// ä»ä¸­æå–éœ€è¦çš„å€¼
 					ssid = result.getString("SSID");
 					passwd = result.getString("passwd");
 					Authorise=result.getInt("authorise");
@@ -75,7 +75,7 @@ public boolean getflag()
 					System.out.println("result::::::" + mStrResult);
 					
 				} else {
-					System.out.println("Á¬½ÓÊ§°Ü0");
+					System.out.println("è¿æ¥å¤±è´¥0");
 				}
 			}
 		}
@@ -91,7 +91,7 @@ public boolean getflag()
 				// boolean flage=this.wc.Connect(this.ssid, this.passwd, WifiCipherType.WIFICIPHER_WPA);
 				//System.out.println(SSIDArray[position]);
 				//System.out.println(passwdArray[position]);
-				//System.out.println("Òì²½Á¬½Ó×´Ì¬£º "+flage);//SSIDArray[position];
+				//System.out.println("å¼‚æ­¥è¿æ¥çŠ¶æ€ï¼š "+flage);//SSIDArray[position];
 		return "SSID:"+ssid+"passwd:"+passwd+"Authorise:"+Authorise;
 			
 
